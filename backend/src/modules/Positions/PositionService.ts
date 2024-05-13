@@ -1,6 +1,6 @@
 import HttpError from '../../utils/HttpError'
 import * as Repository from './PositionRepository'
-import { NewPosition } from './PositionSchema'
+import { NewPosition, UpdatePosition } from './PositionSchema'
 
 export async function findPositions(isHiring: boolean) {
   const positions = await Repository.findPositions(isHiring)
@@ -29,4 +29,27 @@ export async function createPosition(position: NewPosition) {
   }
 
   return newPosition
+}
+
+export async function updatePosition(id: number, position: UpdatePosition) {
+  const findPosition = await Repository.findOnePosition(id)
+
+  if (!findPosition) {
+    throw new HttpError('Position not found', 404)
+  }
+
+  const updatedPosition = await Repository.updatePosition(id, position)
+
+  return updatedPosition
+}
+
+export async function deletePosition(id: number) {
+  const findPosition = await Repository.findOnePosition(id)
+
+  if (!findPosition) {
+    throw new HttpError('Position not found', 404)
+  }
+
+  const deletedPosition = await Repository.deletePosition(id)
+  return deletedPosition
 }

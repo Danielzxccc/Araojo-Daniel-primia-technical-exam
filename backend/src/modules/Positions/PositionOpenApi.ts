@@ -44,8 +44,52 @@
  *           application/json:
  *             schema:
  *               $ref: "#/components/schemas/Position"
+ *   delete:
+ *     summary: Delete position by ID
+ *     tags:
+ *       - Positions
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the position to retrieve
+ *         schema:
+ *           type: string
+ *     responses:
+ *       "200":
+ *         description: Position deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Position"
  *               required: true
+ *   put:
+ *     summary: Update position details
+ *     tags:
+ *       - Positions
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the position to update
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/NewPositionSchema"
+ *     responses:
+ *       "200":
+ *         description: Position details updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Position"
  */
+
 /**
  * @openapi
  * components:

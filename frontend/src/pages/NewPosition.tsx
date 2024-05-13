@@ -11,7 +11,7 @@ export const positionSchema = z
     salary_range_start: z.coerce.number().min(10_000),
     salary_range_end: z.coerce.number().min(10_000),
   })
-  .refine((data) => data.salary_range_end >= data.salary_range_start, {
+  .refine((data) => data.salary_range_end > data.salary_range_start, {
     path: ['salary_range_end'],
     message:
       'Salary range end must be greater than or equal to salary range start',

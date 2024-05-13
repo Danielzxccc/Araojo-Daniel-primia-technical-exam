@@ -8,6 +8,7 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
+  console.log(error)
   if (error instanceof HttpError) {
     return res.status(error.httpCode || 500).json({
       error: true,

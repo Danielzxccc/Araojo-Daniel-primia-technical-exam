@@ -67,4 +67,50 @@ export class PositionsService {
             },
         });
     }
+    /**
+     * Delete position by ID
+     * @returns Position Position deleted successfully
+     * @throws ApiError
+     */
+    public static deleteApiPositions({
+        id,
+    }: {
+        /**
+         * ID of the position to retrieve
+         */
+        id: string,
+    }): CancelablePromise<Position> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/positions/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+    /**
+     * Update position details
+     * @returns Position Position details updated successfully
+     * @throws ApiError
+     */
+    public static putApiPositions({
+        id,
+        requestBody,
+    }: {
+        /**
+         * ID of the position to update
+         */
+        id: string,
+        requestBody: NewPositionSchema,
+    }): CancelablePromise<Position> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/positions/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
 }

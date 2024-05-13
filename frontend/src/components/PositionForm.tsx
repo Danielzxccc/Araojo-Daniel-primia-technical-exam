@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { NewPositionSchema } from '@/api/openapi'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 
 type PositionFormProps = {
   onSubmit(values: z.infer<typeof positionSchema>): Promise<void>
@@ -25,6 +26,7 @@ export default function PositionForm({
   position,
   isPending,
 }: PositionFormProps) {
+  const navigate = useNavigate()
   const form = useForm<z.infer<typeof positionSchema>>({
     resolver: zodResolver(positionSchema),
     defaultValues: position,
@@ -105,12 +107,22 @@ export default function PositionForm({
               </FormItem>
             )}
           />
-          <Button
-            type='submit'
-            disabled={isPending}
-          >
-            Submit
-          </Button>
+          <div className='flex gap-2'>
+            <Button
+              type='submit'
+              disabled={isPending}
+            >
+              Submit
+            </Button>
+            <Button
+              variant='secondary'
+              type='button'
+              disabled={isPending}
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

@@ -33,3 +33,11 @@ export async function findOnePosition(id: number) {
     .where('id', '=', id)
     .executeTakeFirst()
 }
+
+export async function deletePosition(id: number) {
+  return await db
+    .deleteFrom('positions')
+    .where('id', '=', id)
+    .returningAll()
+    .executeTakeFirst()
+}

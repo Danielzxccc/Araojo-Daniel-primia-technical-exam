@@ -50,3 +50,35 @@ export async function createPosition(
     next(error)
   }
 }
+
+export async function updatePosition(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { params, body } = await zParse(Schema.UpdatePositionSchema, req)
+
+    const updatedPosition = await Service.updatePosition(params.id, body)
+
+    res.status(200).json(updatedPosition)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export async function deletePosition(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { params } = await zParse(Schema.FindPositionSchema, req)
+
+    const updatedPosition = await Service.deletePosition(params.id)
+
+    res.status(200).json(updatedPosition)
+  } catch (error) {
+    next(error)
+  }
+}

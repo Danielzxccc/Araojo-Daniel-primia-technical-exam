@@ -19,7 +19,7 @@ export function errorHandler(
   }
 
   if (error instanceof Error) {
-    return res.status(500).json({ error: true, message: error.message })
+    return res.status(500).json({ error: true, message: 'Server Error' })
   }
 
   next(error)

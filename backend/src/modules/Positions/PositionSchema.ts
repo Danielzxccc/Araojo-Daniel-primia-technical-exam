@@ -15,11 +15,16 @@ export const PositionQuery = z.object({
   }),
 })
 
+export const FindPositionSchema = z.object({
+  params: z.object({
+    id: z.string().transform((arg) => Number(arg)),
+  }),
+})
+
 export const NewPositionSchema = z.object({
   body: z.object({
     title: z.string(),
     description: z.string(),
-    openings: z.number(),
     salary_range_start: z.number(),
     salary_range_end: z.number(),
   }),

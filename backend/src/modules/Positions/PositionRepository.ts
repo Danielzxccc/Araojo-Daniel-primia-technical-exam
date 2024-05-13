@@ -25,3 +25,11 @@ export async function updatePosition(id: number, position: UpdatePosition) {
     .returningAll()
     .executeTakeFirst()
 }
+
+export async function findOnePosition(id: number) {
+  return await db
+    .selectFrom('positions')
+    .selectAll()
+    .where('id', '=', id)
+    .executeTakeFirst()
+}

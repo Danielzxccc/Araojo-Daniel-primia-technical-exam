@@ -46,4 +46,25 @@ export class PositionsService {
             mediaType: 'application/json',
         });
     }
+    /**
+     * Get position by ID
+     * @returns Position Position retrieved successfully
+     * @throws ApiError
+     */
+    public static getApiPositions1({
+        id,
+    }: {
+        /**
+         * ID of the position to retrieve
+         */
+        id: string,
+    }): CancelablePromise<Position> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/positions/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
 }

@@ -25,6 +25,29 @@
 
 /**
  * @openapi
+ * /api/positions/{id}:
+ *   get:
+ *     summary: Get position by ID
+ *     tags:
+ *       - Positions
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the position to retrieve
+ *         schema:
+ *           type: string
+ *     responses:
+ *       "200":
+ *         description: Position retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Position"
+ *               required: true
+ */
+/**
+ * @openapi
  * components:
  *   schemas:
  *     Position:
@@ -32,18 +55,29 @@
  *       properties:
  *         id:
  *           type: integer
+ *           description: The ID of the position
  *         title:
  *           type: string
+ *           description: The title of the position
  *         description:
  *           type: string
- *         openings:
- *           type: integer
+ *           description: The description of the position
  *         salary_range_start:
  *           type: integer
+ *           description: The start of the salary range for the position
  *         salary_range_end:
  *           type: integer
+ *           description: The end of the salary range for the position
  *         is_hiring:
  *           type: boolean
+ *           description: Indicates whether the position is currently hiring
+ *       required:
+ *         - id
+ *         - title
+ *         - description
+ *         - salary_range_start
+ *         - salary_range_end
+ *         - is_hiring
  */
 
 /**
@@ -79,10 +113,15 @@
  *           type: string
  *         description:
  *           type: string
- *         openings:
- *           type: number
  *         salary_range_start:
  *           type: number
  *         salary_range_end:
  *           type: number
+ *       required:
+ *         - id
+ *         - title
+ *         - description
+ *         - salary_range_start
+ *         - salary_range_end
+ *         - is_hiring
  */

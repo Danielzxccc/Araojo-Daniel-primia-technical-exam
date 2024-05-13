@@ -19,6 +19,22 @@ export async function findPositions(
   }
 }
 
+export async function findPosition(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { params } = await zParse(Schema.FindPositionSchema, req)
+
+    const positions = await Service.findPosition(params.id)
+
+    res.status(200).json(positions)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export async function createPosition(
   req: Request,
   res: Response,
@@ -26,7 +42,6 @@ export async function createPosition(
 ) {
   try {
     const { body } = await zParse(Schema.NewPositionSchema, req)
-    const attachments = req.files as Express.Multer.File[]
 
     const positions = await Service.createPosition(body)
 

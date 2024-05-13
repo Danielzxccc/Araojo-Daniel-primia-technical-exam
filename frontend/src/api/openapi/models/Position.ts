@@ -3,12 +3,29 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Position = {
-    id?: number;
-    title?: string;
-    description?: string;
-    openings?: number;
-    salary_range_start?: number;
-    salary_range_end?: number;
-    is_hiring?: boolean;
+    /**
+     * The ID of the position
+     */
+    id: number;
+    /**
+     * The title of the position
+     */
+    title: string;
+    /**
+     * The description of the position
+     */
+    description: string;
+    /**
+     * The start of the salary range for the position
+     */
+    salary_range_start: number;
+    /**
+     * The end of the salary range for the position
+     */
+    salary_range_end: number;
+    /**
+     * Indicates whether the position is currently hiring
+     */
+    is_hiring: boolean;
 };
 

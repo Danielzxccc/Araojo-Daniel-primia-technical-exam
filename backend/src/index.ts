@@ -1,8 +1,10 @@
 import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import { PositionRouter } from './modules/Positions/PositionRouter'
 import { errorHandler } from './utils/errorHandler'
 import swaggerDocs from './utils/swagger'
+import { corsOptions } from './config/cors'
 
 dotenv.config()
 
@@ -11,6 +13,7 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cors(corsOptions))
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express Server')

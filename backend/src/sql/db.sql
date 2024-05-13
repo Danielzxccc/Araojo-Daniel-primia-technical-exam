@@ -4,7 +4,6 @@ CREATE TABLE positions(
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
-    openings INT NOT NULL,
     salary_range_start INT NOT NULL,
     salary_range_end INT NOT NULL,
     is_hiring BOOLEAN DEFAULT true
@@ -42,3 +41,10 @@ CREATE TABLE file_attachments(
     filename TEXT NOT NULL,
     FOREIGN KEY (candidate_id) REFERENCES candidates(id) ON DELETE CASCADE
 );
+
+
+
+DELETE FROM positions;
+
+-- Reset the identity column's sequence
+ALTER SEQUENCE positions_id_seq RESTART WITH 1

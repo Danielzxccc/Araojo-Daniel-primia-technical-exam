@@ -19,6 +19,9 @@ import { z } from 'zod'
 import useUpdatePosition from '@/hooks/useUpdatePosition'
 import useDeletePosition from '@/hooks/useDeletePosition'
 import ConfirmDialog from '@/components/ConfirmDialog'
+import { DataTable } from '../components/candidate-table/data-table'
+import { columns } from '../components/candidate-table/columns'
+import useGetCandidatesByPosition from '../hooks/useGetCandidatesByPosition'
 
 export default function Position() {
   const { positionid } = useParams()
@@ -26,15 +29,22 @@ export default function Position() {
   const [editMode, setEditMode] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
 
-  const { data, error, isError, isLoading, isFetching } = useGetPositions(
-    positionid ?? ''
-  )
+  const {
+    data: position,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+  } = useGetPositions(positionid ?? '')
+
+  const { data: candidates, isLoading: candidateLoading } =
+    useGetCandidatesByPosition(positionid ?? '')
 
   const { mutateAsync, isPending } = useUpdatePosition()
   const { mutateAsync: deleteMutation, isPending: isDeleting } =
     useDeletePosition()
 
-  if (isLoading || isFetching || isDeleting) {
+  if (isLoading || isFetching || isDeleting || candidateLoading) {
     return 'Loading..'
   }
 
@@ -67,13 +77,13 @@ export default function Position() {
     }
   }
 
-  if (data) {
+  if (position && candidates) {
     return (
       <>
         {editMode ? (
           <PositionForm
             isPending={isPending}
-            position={data}
+            position={position}
             onSubmit={onSubmit}
           />
         ) : (
@@ -93,7 +103,13 @@ export default function Position() {
                 Delete
               </Button>
             </div>
-            <PositionCard data={data} />
+            <PositionCard data={position} />
+            <div className='mt-10'>
+              <DataTable
+                columns={columns}
+                data={candidates ?? []}
+              />
+            </div>
           </div>
         )}
         <ConfirmDialog

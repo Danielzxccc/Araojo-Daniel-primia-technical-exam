@@ -115,6 +115,8 @@
  *         is_hiring:
  *           type: boolean
  *           description: Indicates whether the position is currently hiring
+ *         candidates:
+ *           type: string
  *       required:
  *         - id
  *         - title
@@ -122,6 +124,7 @@
  *         - salary_range_start
  *         - salary_range_end
  *         - is_hiring
+ *         - candidates
  */
 
 /**

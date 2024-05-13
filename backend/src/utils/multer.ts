@@ -2,7 +2,7 @@ import multer from 'multer'
 import path from 'path'
 import * as dotenv from 'dotenv'
 import crypto from 'crypto'
-import { Request } from 'express'
+
 dotenv.config()
 
 const imageFolderPath = path.join(__dirname, '../../', 'uploads')
@@ -18,12 +18,7 @@ const upload = multer({
   },
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(
-        null,
-        process.env.NODE_ENV === 'development'
-          ? imageFolderPath
-          : process.env.STORAGE_URL
-      )
+      cb(null, imageFolderPath)
     },
     filename: function (req, file, cb) {
       cb(null, generateFileName() + path.extname(file.originalname))

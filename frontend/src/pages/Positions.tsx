@@ -84,7 +84,7 @@ function PositionCards(props: Position) {
             <p className='line-clamp-3'>{props.description}</p>
           </CardContent>
           <CardFooter>
-            <p>Number of Candidates: 0</p>
+            <p>Number of Candidates: {props.candidates}</p>
           </CardFooter>
         </Card>
       </Link>

@@ -27,5 +27,6 @@ export type Position = {
      * Indicates whether the position is currently hiring
      */
     is_hiring: boolean;
+    candidates: string;
 };
 

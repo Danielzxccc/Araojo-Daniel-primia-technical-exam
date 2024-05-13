@@ -1,10 +1,13 @@
 import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { PositionRouter } from './modules/Positions/PositionRouter'
 import { errorHandler } from './utils/errorHandler'
 import swaggerDocs from './utils/swagger'
 import { corsOptions } from './config/cors'
+
+import { PositionRouter } from './modules/Positions/PositionRouter'
+import { CandidateRouter } from './modules/Candidates/CandidateRouter'
+import { multerLimitter } from './middleware/UploadMiddleware'
 
 dotenv.config()
 
@@ -22,7 +25,9 @@ app.get('/', (req: Request, res: Response) => {
 swaggerDocs(app)
 
 app.use('/api/positions', PositionRouter)
+app.use('/api/candidates', CandidateRouter)
 
+app.use(multerLimitter)
 app.use(errorHandler)
 
 app.listen(port, () => {

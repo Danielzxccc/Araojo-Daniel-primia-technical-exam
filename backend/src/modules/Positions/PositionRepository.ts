@@ -3,8 +3,18 @@ import { NewPosition, UpdatePosition } from './PositionSchema'
 
 export async function findPositions(isHiring: boolean) {
   return await db
-    .selectFrom('positions')
-    .selectAll()
+    .selectFrom('positions as p')
+    .leftJoin('candidates as c', 'c.position_id', 'p.id')
+    .select(({ fn }) => [
+      'p.id',
+      'p.title',
+      'p.description',
+      'p.salary_range_start',
+      'p.salary_range_end',
+      'p.is_hiring',
+      fn.count<number>('c.id').as('candidates'),
+    ])
+    .groupBy(['p.id'])
     .where('is_hiring', '=', isHiring)
     .execute()
 }

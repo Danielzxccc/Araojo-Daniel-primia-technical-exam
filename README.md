@@ -2,7 +2,6 @@
 **Prerequisites:**
 
 - Docker installed ([https://www.docker.com/](https://www.docker.com/))
-- Docker Compose installed ([https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/))
 - Node.js and npm installed ([https://nodejs.org/en/download](https://nodejs.org/en/download))
 
 **Steps:**

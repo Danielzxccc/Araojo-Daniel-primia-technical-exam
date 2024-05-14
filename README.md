@@ -19,7 +19,7 @@
    Navigate to the project's root directory in your terminal and run:
 
      ```bash
-     docker-compose up -d
+     docker compose up -d
      ```
 
    This creates and starts the PostgreSQL database container in detached mode.

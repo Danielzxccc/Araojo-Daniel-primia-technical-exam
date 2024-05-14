@@ -20,7 +20,7 @@ export default function NewCandidate() {
 
   async function onSubmit(data: z.infer<typeof candidateSchema>) {
     try {
-      await mutateAsync({ formData: data })
+      await mutateAsync({ requestBody: data })
       toast.success('Created Successfully')
       navigate('/candidates')
     } catch (error: any) {

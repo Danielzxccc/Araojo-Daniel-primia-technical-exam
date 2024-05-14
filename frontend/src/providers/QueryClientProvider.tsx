@@ -6,10 +6,7 @@ import {
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const QueryClientProvider = (props: {
-  children: React.ReactNode
-  state: unknown
-}) => {
+const QueryClientProvider = (props: { children: React.ReactNode }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type NewCandidateSchema = {
-    files?: Array<Blob>;
     position_id: number;
     fullname: string;
     email: string;

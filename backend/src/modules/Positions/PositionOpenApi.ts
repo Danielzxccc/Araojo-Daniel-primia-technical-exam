@@ -5,13 +5,6 @@
  *     summary: Get positions
  *     tags:
  *       - Positions
- *     parameters:
- *       - in: query
- *         name: is_hiring
- *         schema:
- *           type: string
- *           default: "true"
- *         description: Filter positions by hiring status (optional)
  *     responses:
  *       "200":
  *         description: List of positions

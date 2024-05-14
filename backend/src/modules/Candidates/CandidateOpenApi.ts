@@ -8,7 +8,7 @@
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             $ref: "#/components/schemas/NewCandidateSchema"
  *     responses:
@@ -27,11 +27,6 @@
  *     NewCandidateSchema:
  *       type: object
  *       properties:
- *         files:
- *           type: array
- *           items:
- *             type: string
- *             format: binary
  *         position_id:
  *           type: number
  *         fullname:
@@ -122,6 +117,29 @@
 
 /**
  * @openapi
+ * /api/candidates/{id}:
+ *   delete:
+ *     summary: Delete a candidate by ID
+ *     tags:
+ *       - Candidates
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the candidate to delete
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       "200":
+ *         description: Candidate deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/CandidateResponseSchema"
+ */
+
+/**
+ * @openapi
  * /api/candidates/position/{id}:
  *   get:
  *     summary: Get all candidates
@@ -134,6 +152,14 @@
  *         description: ID of the position to retrieve
  *         schema:
  *           type: string
+ *       - in: query
+ *         name: status
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum:
+ *            - hired
+ *            - candidate
  *     responses:
  *       "200":
  *         description: Successful operation

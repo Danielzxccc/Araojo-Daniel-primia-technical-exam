@@ -1,4 +1,5 @@
 import { db } from '../../config/database'
+import { PositionStatus } from '../../types/db'
 import { NewCandidate, NewFileAttachments } from './CandidateSchema'
 
 export async function createCandidate(candidate: NewCandidate) {
@@ -39,7 +40,10 @@ export async function findCandidates() {
     .execute()
 }
 
-export async function findCandidatesByPosition(id: number) {
+export async function findCandidatesByPosition(
+  id: number,
+  status: PositionStatus
+) {
   return await db
     .selectFrom('candidates as c')
     .leftJoin('positions as p', 'c.position_id', 'p.id')
@@ -58,6 +62,23 @@ export async function findCandidatesByPosition(id: number) {
       'c.updatedat',
       'c.status',
     ])
-    .where('position_id', '=', id)
+    .where('c.position_id', '=', id)
+    .where('c.status', '=', status)
     .execute()
+}
+
+export async function findOneCandidate(id: number) {
+  return await db
+    .selectFrom('candidates')
+    .selectAll()
+    .where('id', '=', id)
+    .executeTakeFirst()
+}
+
+export async function deleteCandidate(id: number) {
+  return await db
+    .deleteFrom('candidates')
+    .where('id', '=', id)
+    .returningAll()
+    .executeTakeFirst()
 }

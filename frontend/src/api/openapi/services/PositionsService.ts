@@ -13,20 +13,10 @@ export class PositionsService {
      * @returns Position List of positions
      * @throws ApiError
      */
-    public static getApiPositions({
-        isHiring = 'true',
-    }: {
-        /**
-         * Filter positions by hiring status (optional)
-         */
-        isHiring?: string,
-    }): CancelablePromise<Array<Position>> {
+    public static getApiPositions(): CancelablePromise<Array<Position>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/positions',
-            query: {
-                'is_hiring': isHiring,
-            },
         });
     }
     /**

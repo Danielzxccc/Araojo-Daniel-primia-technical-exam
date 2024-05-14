@@ -23,16 +23,9 @@ export interface Candidates {
   updatedat: Generated<Timestamp | null>;
 }
 
-export interface FileAttachments {
-  candidate_id: number;
-  filename: string;
-  id: Generated<number>;
-}
-
 export interface Positions {
   description: string;
   id: Generated<number>;
-  is_hiring: Generated<boolean | null>;
   salary_range_end: number;
   salary_range_start: number;
   title: string;
@@ -40,6 +33,5 @@ export interface Positions {
 
 export interface DB {
   candidates: Candidates;
-  file_attachments: FileAttachments;
   positions: Positions;
 }

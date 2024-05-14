@@ -40,10 +40,28 @@ export async function findCandidatesByPosition(
   next: NextFunction
 ) {
   try {
-    const { params } = await zParse(Schema.CandidateQuery, req)
-    const candidates = await Service.findCandidatesByPosition(params.id)
+    const { params, query } = await zParse(Schema.CandidateQuery, req)
+    const candidates = await Service.findCandidatesByPosition(
+      params.id,
+      query.status
+    )
 
     res.status(200).json(candidates)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export async function deleteCandidate(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { params } = await zParse(Schema.CandidateQuery, req)
+    const deletedCandidate = await Service.deleteCandidate(params.id)
+
+    res.status(200).json(deletedCandidate)
   } catch (error) {
     next(error)
   }

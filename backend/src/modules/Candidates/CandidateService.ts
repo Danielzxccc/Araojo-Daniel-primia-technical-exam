@@ -1,13 +1,10 @@
-import { number } from 'zod'
 import HttpError from '../../utils/HttpError'
 import { findOnePosition } from '../Positions/PositionRepository'
 import * as Repository from './CandidateRepository'
-import { NewCandidate, NewFileAttachments } from './CandidateSchema'
+import { NewCandidate } from './CandidateSchema'
+import { PositionStatus } from '../../types/db'
 
-export async function createCandidate(
-  candidate: NewCandidate,
-  files: Express.Multer.File[]
-) {
+export async function createCandidate(candidate: NewCandidate) {
   const position = await findOnePosition(candidate.position_id)
 
   if (!position) {
@@ -23,18 +20,6 @@ export async function createCandidate(
     )
   }
 
-  let fileObjects: NewFileAttachments[] = []
-
-  if (files?.length) {
-    fileObjects = files.map((item) => {
-      return {
-        candidate_id: newCandidate.id,
-        filename: item.filename,
-      }
-    })
-    await Repository.createFileAttachemnts(fileObjects)
-  }
-
   return newCandidate
 }
 
@@ -44,14 +29,17 @@ export async function findCandidates() {
   return data
 }
 
-export async function findCandidatesByPosition(id: number) {
+export async function findCandidatesByPosition(
+  id: number,
+  status: PositionStatus
+) {
   const position = await findOnePosition(id)
 
   if (!position) {
     throw new HttpError('Position Not Found', 404)
   }
 
-  const data = await Repository.findCandidatesByPosition(id)
+  const data = await Repository.findCandidatesByPosition(id, status)
 
   return data
 }

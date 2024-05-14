@@ -5,8 +5,7 @@ CREATE TABLE positions(
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     salary_range_start INT NOT NULL,
-    salary_range_end INT NOT NULL,
-    is_hiring BOOLEAN DEFAULT true
+    salary_range_end INT NOT NULL
 );
 
 CREATE TYPE position_status AS ENUM ('hired', 'candidate');

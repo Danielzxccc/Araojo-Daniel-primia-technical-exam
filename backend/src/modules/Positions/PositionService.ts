@@ -2,8 +2,8 @@ import HttpError from '../../utils/HttpError'
 import * as Repository from './PositionRepository'
 import { NewPosition, UpdatePosition } from './PositionSchema'
 
-export async function findPositions(isHiring: boolean) {
-  const positions = await Repository.findPositions(isHiring)
+export async function findPositions() {
+  const positions = await Repository.findPositions()
 
   return positions
 }

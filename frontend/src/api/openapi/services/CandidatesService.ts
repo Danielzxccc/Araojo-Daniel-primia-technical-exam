@@ -14,15 +14,15 @@ export class CandidatesService {
      * @throws ApiError
      */
     public static postApiCandidates({
-        formData,
+        requestBody,
     }: {
-        formData: NewCandidateSchema,
+        requestBody: NewCandidateSchema,
     }): CancelablePromise<CandidateResponseSchema> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/candidates',
-            formData: formData,
-            mediaType: 'multipart/form-data',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
     /**
@@ -37,23 +37,49 @@ export class CandidatesService {
         });
     }
     /**
+     * Delete a candidate by ID
+     * @returns CandidateResponseSchema Candidate deleted successfully
+     * @throws ApiError
+     */
+    public static deleteApiCandidates({
+        id,
+    }: {
+        /**
+         * ID of the candidate to delete
+         */
+        id: number,
+    }): CancelablePromise<CandidateResponseSchema> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/candidates/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+    /**
      * Get all candidates
      * @returns CandidateResponseSchema Successful operation
      * @throws ApiError
      */
     public static getApiCandidatesPosition({
         id,
+        status,
     }: {
         /**
          * ID of the position to retrieve
          */
         id: string,
+        status?: 'hired' | 'candidate',
     }): CancelablePromise<Array<CandidateResponseSchema>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/candidates/position/{id}',
             path: {
                 'id': id,
+            },
+            query: {
+                'status': status,
             },
         });
     }

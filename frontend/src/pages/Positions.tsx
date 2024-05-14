@@ -6,25 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Position } from '../api/openapi'
 import useGetPositions from '../hooks/useGetPositions'
-import { useState } from 'react'
+
 import { formatToPesoCurrency } from '../utils/utils'
 import { Link } from 'react-router-dom'
 
 export default function Positions() {
-  const [isHiring, setIsHiring] = useState<'Yes' | 'No'>('Yes')
-  const { data, isLoading, error, isError } = useGetPositions(
-    isHiring === 'Yes' ? isHiring : ''
-  )
+  const { data, isLoading, error, isError } = useGetPositions()
 
   if (isError) {
     const errorBody = error as any
@@ -33,19 +23,7 @@ export default function Positions() {
 
   return (
     <>
-      <div className='mb-4 flex justify-between'>
-        <div>
-          Hiring Positions:
-          <Select onValueChange={(value) => setIsHiring(value as 'Yes' | 'No')}>
-            <SelectTrigger className='w-[180px]'>
-              <SelectValue placeholder='Yes' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value='Yes'>Yes</SelectItem>
-              <SelectItem value='No'>No</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      <div className='mb-4 flex justify-end'>
         <Link to='/new-position'>
           <Button type='button'>Add New Position</Button>
         </Link>

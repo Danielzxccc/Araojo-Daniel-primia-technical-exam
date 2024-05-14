@@ -9,9 +9,7 @@ export async function findPositions(
   next: NextFunction
 ) {
   try {
-    const { query } = await zParse(Schema.PositionQuery, req)
-
-    const positions = await Service.findPositions(query.is_hiring)
+    const positions = await Service.findPositions()
 
     res.status(200).json(positions)
   } catch (error) {

@@ -28,6 +28,7 @@ export default function Position() {
   const navigate = useNavigate()
   const [editMode, setEditMode] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
+  const [status, setStatus] = useState<'hired' | 'candidate'>('candidate')
 
   const {
     data: position,
@@ -38,7 +39,7 @@ export default function Position() {
   } = useGetPositions(positionid ?? '')
 
   const { data: candidates, isLoading: candidateLoading } =
-    useGetCandidatesByPosition(positionid ?? '')
+    useGetCandidatesByPosition(positionid ?? '', status)
 
   const { mutateAsync, isPending } = useUpdatePosition()
   const { mutateAsync: deleteMutation, isPending: isDeleting } =
@@ -105,6 +106,20 @@ export default function Position() {
             </div>
             <PositionCard data={position} />
             <div className='mt-10'>
+              <div className='flex gap-2'>
+                <Button
+                  variant={status === 'candidate' ? 'default' : 'secondary'}
+                  onClick={() => setStatus('candidate')}
+                >
+                  Candidate
+                </Button>
+                <Button
+                  variant={status === 'hired' ? 'default' : 'secondary'}
+                  onClick={() => setStatus('hired')}
+                >
+                  Hired
+                </Button>
+              </div>
               <DataTable
                 columns={columns}
                 data={candidates ?? []}

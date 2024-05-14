@@ -31,16 +31,6 @@ export const candidateSchema = z.object({
   birthdate: z.string(),
   current_salary: z.coerce.number(),
   expected_salary: z.coerce.number(),
-  files: z
-    .any()
-    .refine((files: Blob[]) => {
-      if (!files || files.length === 0) {
-        return false
-      }
-
-      return true
-    }, 'Please upload at least one image of your farm.')
-    .optional(),
 })
 
 type PositionFormProps = {
@@ -55,7 +45,7 @@ export default function CandidateForm({
   onSubmit,
 }: PositionFormProps) {
   const navigate = useNavigate()
-  const { data, isLoading } = useGetPositions('Yes')
+  const { data, isLoading } = useGetPositions()
 
   const form = useForm<z.infer<typeof candidateSchema>>({
     resolver: zodResolver(candidateSchema),

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CandidatesService, NewCandidateSchema } from '@/api/openapi'
 
 type DataSchema = {
-  formData: NewCandidateSchema
+  requestBody: NewCandidateSchema
 }
 
 export default function useCreateCandidate() {

@@ -7,6 +7,7 @@ import { corsOptions } from './config/cors'
 
 import { PositionRouter } from './modules/Positions/PositionRouter'
 import { CandidateRouter } from './modules/Candidates/CandidateRouter'
+import syncDatabase from './utils/syncDatabase'
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Express Server')
 })
 
+syncDatabase()
 swaggerDocs(app)
 
 app.use('/api/positions', PositionRouter)

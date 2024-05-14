@@ -1,5 +1,3 @@
-
-
 CREATE TABLE IF NOT EXISTS positions(
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
@@ -8,7 +6,18 @@ CREATE TABLE IF NOT EXISTS positions(
     salary_range_end INT NOT NULL
 );
 
-CREATE TYPE IF NOT EXISTS position_status AS ENUM ('hired', 'candidate');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type typ
+    INNER JOIN pg_namespace nsp ON nsp.oid = typ.typnamespace
+    WHERE nsp.nspname = current_schema() AND typ.typname = 'position_status'
+  ) THEN
+    CREATE TYPE position_status AS ENUM ('hired', 'candidate');
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TABLE IF NOT EXISTS candidates(
     id SERIAL PRIMARY KEY,
     position_id INT NOT NULL,
@@ -23,4 +32,3 @@ CREATE TABLE IF NOT EXISTS candidates(
     status position_status default 'candidate',
     FOREIGN KEY (position_id) REFERENCES positions(id) ON DELETE CASCADE
 );
-

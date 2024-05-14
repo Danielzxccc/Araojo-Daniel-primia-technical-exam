@@ -10,7 +10,7 @@ import { formatToPesoCurrency } from '@/utils/utils'
 import useGetPositions from '../hooks/useGetPositionById'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Position as PositionType } from '@/api/openapi'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import PositionForm from '@/components/PositionForm'
 import { positionSchema } from './NewPosition'
@@ -22,6 +22,7 @@ import ConfirmDialog from '@/components/ConfirmDialog'
 import { DataTable } from '../components/candidate-table/data-table'
 import { columns } from '../components/candidate-table/columns'
 import useGetCandidatesByPosition from '../hooks/useGetCandidatesByPosition'
+import { Input } from '../components/ui/input'
 
 export default function Position() {
   const { positionid } = useParams()
@@ -29,6 +30,7 @@ export default function Position() {
   const [editMode, setEditMode] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
   const [status, setStatus] = useState<'hired' | 'candidate'>('candidate')
+  const [searchKey, setSearchKey] = useState('')
 
   const {
     data: position,
@@ -44,6 +46,14 @@ export default function Position() {
   const { mutateAsync, isPending } = useUpdatePosition()
   const { mutateAsync: deleteMutation, isPending: isDeleting } =
     useDeletePosition()
+
+  const filteredData = useMemo(() => {
+    return candidates?.filter(
+      (item) =>
+        item.fullname.toLowerCase().includes(searchKey.toLowerCase()) ||
+        item.title.toLowerCase().includes(searchKey.toLowerCase())
+    )
+  }, [candidates, searchKey, position, status])
 
   if (isLoading || isFetching || isDeleting || candidateLoading) {
     return 'Loading..'
@@ -120,9 +130,16 @@ export default function Position() {
                   Hired
                 </Button>
               </div>
+              <div className='mt-10'>
+                <Input
+                  type='text'
+                  placeholder='search'
+                  onChange={(e) => setSearchKey(e.target.value)}
+                />
+              </div>
               <DataTable
                 columns={columns}
-                data={candidates ?? []}
+                data={filteredData ?? []}
               />
             </div>
           </div>

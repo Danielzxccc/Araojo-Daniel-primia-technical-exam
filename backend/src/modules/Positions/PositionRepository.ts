@@ -11,7 +11,10 @@ export async function findPositions() {
       'p.description',
       'p.salary_range_start',
       'p.salary_range_end',
-      fn.count<number>('c.id').as('candidates'),
+      fn
+        .count<number>('c.id')
+        .filterWhere('c.status', '=', 'candidate')
+        .as('candidates'),
     ])
     .groupBy(['p.id'])
     .execute()

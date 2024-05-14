@@ -28,7 +28,6 @@ export const candidateSchema = z.object({
   fullname: z.string().min(2),
   email: z.string().email(),
   phone: z.string().min(11),
-  birthdate: z.string(),
   current_salary: z.coerce.number(),
   expected_salary: z.coerce.number(),
 })
@@ -55,6 +54,7 @@ export default function CandidateForm({
   if (isLoading) {
     return 'loading..'
   }
+
   if (data) {
     return (
       <div className='px-20'>
@@ -136,23 +136,6 @@ export default function CandidateForm({
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='phone'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='birthdate'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Birthdate</FormLabel>
-                  <FormControl>
-                    <Input
-                      type='date'
                       placeholder='phone'
                       {...field}
                     />

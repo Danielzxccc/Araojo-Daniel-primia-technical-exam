@@ -4,6 +4,7 @@
 /* eslint-disable */
 
 export type { CandidateResponseSchema } from './models/CandidateResponseSchema';
+export type { HireCandidateBodySchema } from './models/HireCandidateBodySchema';
 export type { NewCandidateSchema } from './models/NewCandidateSchema';
 export type { NewPositionSchema } from './models/NewPositionSchema';
 export type { Position } from './models/Position';

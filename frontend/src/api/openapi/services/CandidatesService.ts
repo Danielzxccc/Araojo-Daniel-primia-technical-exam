@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CandidateResponseSchema } from '../models/CandidateResponseSchema';
+import type { HireCandidateBodySchema } from '../models/HireCandidateBodySchema';
 import type { NewCandidateSchema } from '../models/NewCandidateSchema';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -37,6 +38,31 @@ export class CandidatesService {
         });
     }
     /**
+     * Hire a candidate by ID
+     * @returns CandidateResponseSchema Candidate hired successfully
+     * @throws ApiError
+     */
+    public static putApiCandidatesHire({
+        id,
+        requestBody,
+    }: {
+        /**
+         * ID of the candidate to hire
+         */
+        id: number,
+        requestBody: HireCandidateBodySchema,
+    }): CancelablePromise<CandidateResponseSchema> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/candidates/hire/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
      * Delete a candidate by ID
      * @returns CandidateResponseSchema Candidate deleted successfully
      * @throws ApiError
@@ -55,6 +81,52 @@ export class CandidatesService {
             path: {
                 'id': id,
             },
+        });
+    }
+    /**
+     * get a candidate by ID
+     * @returns CandidateResponseSchema Success
+     * @throws ApiError
+     */
+    public static getApiCandidates1({
+        id,
+    }: {
+        /**
+         * ID of the candidate to fetched
+         */
+        id: number,
+    }): CancelablePromise<CandidateResponseSchema> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/candidates/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+    /**
+     * Delete a candidate by ID
+     * @returns CandidateResponseSchema Candidate deleted successfully
+     * @throws ApiError
+     */
+    public static putApiCandidates({
+        id,
+        requestBody,
+    }: {
+        /**
+         * ID of the candidate to delete
+         */
+        id: number,
+        requestBody: NewCandidateSchema,
+    }): CancelablePromise<CandidateResponseSchema> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/candidates/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
     /**

@@ -5,6 +5,7 @@ import NewPosition from '@/pages/NewPosition'
 import Position from '@/pages/Position'
 import Candidates from '@/pages/Candidates'
 import NewCandidate from './pages/NewCandidate'
+import UpdateCandidate from './pages/UpdateCandidate'
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <Route
             path='/new-candidate'
             element={<NewCandidate />}
+          />
+          <Route
+            path='/update-candidate/:id'
+            element={<UpdateCandidate />}
           />
         </Route>
       </Routes>

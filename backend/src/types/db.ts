@@ -9,7 +9,6 @@ export type PositionStatus = "candidate" | "hired";
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export interface Candidates {
-  birthdate: Timestamp;
   createdat: Generated<Timestamp | null>;
   current_salary: number | null;
   email: string | null;

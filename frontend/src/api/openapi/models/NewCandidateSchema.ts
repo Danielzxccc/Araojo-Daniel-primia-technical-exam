@@ -7,7 +7,6 @@ export type NewCandidateSchema = {
     fullname: string;
     email: string;
     phone: string;
-    birthdate: string;
     current_salary: number;
     expected_salary: number;
 };

@@ -8,12 +8,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+
 import { Button } from '../ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import { useState } from 'react'
 import ConfirmDialog from '../ConfirmDialog'
 import useDeleteCandidate from '../../hooks/useDeleteCandidate'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import CandidateModal from '../CandidateModal'
+import HireDialog from '../HireDialog'
 
 export const columns: ColumnDef<CandidateResponseSchema>[] = [
   {
@@ -47,9 +51,13 @@ export const columns: ColumnDef<CandidateResponseSchema>[] = [
   {
     header: 'Action',
     accessorKey: 'id',
-    cell: ({ cell }) => {
+    cell: ({ cell, row }) => {
       const [deleteConfirmation, setDeleteConfirmation] = useState(false)
+      const [candidateModal, setCandidateModal] = useState(false)
+      const [hireModal, setHireModal] = useState(false)
+
       const id = Number(cell.getValue())
+      const navigate = useNavigate()
 
       const { mutateAsync } = useDeleteCandidate()
       async function onDelete() {
@@ -80,12 +88,34 @@ export const columns: ColumnDef<CandidateResponseSchema>[] = [
               <DropdownMenuItem onClick={() => setDeleteConfirmation(true)}>
                 Delete
               </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigate(`/update-candidate/${id}`)}
+              >
+                Update
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setCandidateModal(true)}>
+                View
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <HireDialog
+            id={id}
+            expected_salary={Number(row.getValue('expected_salary'))}
+            onOpenChange={setHireModal}
+            open={hireModal}
+          />
           <ConfirmDialog
             onDelete={onDelete}
             onOpenChange={setDeleteConfirmation}
             open={deleteConfirmation}
+          />
+
+          <CandidateModal
+            id={id}
+            onOpenChange={setCandidateModal}
+            action={setHireModal}
+            open={candidateModal}
           />
         </div>
       )

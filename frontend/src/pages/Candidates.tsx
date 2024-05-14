@@ -12,9 +12,9 @@ export default function Candidates() {
 
   const filteredData = useMemo(() => {
     return data?.filter(
-      (product) =>
-        product.fullname.toLowerCase().includes(searchKey.toLowerCase()) ||
-        product.title.toLowerCase().includes(searchKey.toLowerCase())
+      (item) =>
+        item.fullname.toLowerCase().includes(searchKey.toLowerCase()) ||
+        item.title.toLowerCase().includes(searchKey.toLowerCase())
     )
   }, [searchKey, data])
 

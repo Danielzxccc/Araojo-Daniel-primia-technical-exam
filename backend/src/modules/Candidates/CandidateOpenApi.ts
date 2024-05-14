@@ -36,9 +36,6 @@
  *           type: string
  *         phone:
  *           type: string
- *         birthdate:
- *           type: string
- *           format: date
  *         current_salary:
  *           type: number
  *         expected_salary:
@@ -48,7 +45,6 @@
  *         - fullname
  *         - email
  *         - phone
- *         - birthdate
  *         - current_salary
  *         - expected_salary
  *     CandidateResponseSchema:
@@ -63,8 +59,6 @@
  *         email:
  *           type: string
  *         phone:
- *           type: string
- *         birthdate:
  *           type: string
  *           format: date-time
  *         current_salary:
@@ -88,7 +82,6 @@
  *         - fullname
  *         - email
  *         - phone
- *         - birthdate
  *         - current_salary
  *         - expected_salary
  *         - final_salary
@@ -117,6 +110,48 @@
 
 /**
  * @openapi
+ * /api/candidates/hire/{id}:
+ *   put:
+ *     summary: Hire a candidate by ID
+ *     tags:
+ *       - Candidates
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the candidate to hire
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/HireCandidateBodySchema"
+ *     responses:
+ *       "200":
+ *         description: Candidate hired successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/CandidateResponseSchema"
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     HireCandidateBodySchema:
+ *       type: object
+ *       properties:
+ *         final_salary:
+ *           type: number
+ *       required:
+ *         - final_salary
+ */
+
+/**
+ * @openapi
  * /api/candidates/{id}:
  *   delete:
  *     summary: Delete a candidate by ID
@@ -129,6 +164,48 @@
  *         required: true
  *         schema:
  *           type: integer
+ *     responses:
+ *       "200":
+ *         description: Candidate deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/CandidateResponseSchema"
+ *   get:
+ *     summary: get a candidate by ID
+ *     tags:
+ *       - Candidates
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the candidate to fetched
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       "200":
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/CandidateResponseSchema"
+ *   put:
+ *     summary: Delete a candidate by ID
+ *     tags:
+ *       - Candidates
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID of the candidate to delete
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/NewCandidateSchema"
  *     responses:
  *       "200":
  *         description: Candidate deleted successfully

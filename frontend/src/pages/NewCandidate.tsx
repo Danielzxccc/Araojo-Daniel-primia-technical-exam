@@ -8,7 +8,6 @@ export default function NewCandidate() {
   const navigate = useNavigate()
   const defaultValues = {
     position_id: 0,
-    birthdate: '',
     phone: '',
     email: '',
     current_salary: 0,

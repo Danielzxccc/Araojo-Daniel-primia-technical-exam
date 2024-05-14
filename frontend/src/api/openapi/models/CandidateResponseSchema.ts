@@ -8,7 +8,6 @@ export type CandidateResponseSchema = {
     fullname: string;
     email: string;
     phone: string;
-    birthdate: string;
     current_salary: number;
     expected_salary: number;
     final_salary: number | null;
@@ -16,5 +15,6 @@ export type CandidateResponseSchema = {
     updatedat: string;
     status: string;
     title: string;
+    birthdate: string;
 };
 

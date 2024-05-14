@@ -1,7 +1,7 @@
 import HttpError from '../../utils/HttpError'
 import { findOnePosition } from '../Positions/PositionRepository'
 import * as Repository from './CandidateRepository'
-import { NewCandidate } from './CandidateSchema'
+import { NewCandidate, UpdateCandidate } from './CandidateSchema'
 import { PositionStatus } from '../../types/db'
 
 export async function createCandidate(candidate: NewCandidate) {
@@ -19,14 +19,33 @@ export async function createCandidate(candidate: NewCandidate) {
       400
     )
   }
-
   return newCandidate
+}
+
+export async function updateCandidate(id: number, candidate: UpdateCandidate) {
+  const findCandidate = await Repository.findOneCandidate(id)
+
+  if (!findCandidate) {
+    throw new HttpError('Candidate not found', 404)
+  }
+
+  const updatedCandidate = await Repository.updateCandidate(id, candidate)
+  return updatedCandidate
 }
 
 export async function findCandidates() {
   const data = await Repository.findCandidates()
 
   return data
+}
+
+export async function findCandidate(id: number) {
+  const candidate = await Repository.findOneCandidate(id)
+  if (!candidate) {
+    throw new HttpError('Candidate not found', 404)
+  }
+
+  return candidate
 }
 
 export async function findCandidatesByPosition(
@@ -42,4 +61,28 @@ export async function findCandidatesByPosition(
   const data = await Repository.findCandidatesByPosition(id, status)
 
   return data
+}
+
+export async function deleteCandidate(id: number) {
+  const candidate = await Repository.findOneCandidate(id)
+
+  if (!candidate) {
+    throw new HttpError('Candidate not found', 404)
+  }
+
+  const deletedCandidate = await Repository.deleteCandidate(id)
+
+  return deletedCandidate
+}
+
+export async function hireCandidate(id: number, final_salary: number) {
+  const candidate = await Repository.findOneCandidate(id)
+
+  if (!candidate) {
+    throw new HttpError('Candidate not found', 404)
+  }
+
+  const hiredCandidate = await Repository.hireCandidate(id, final_salary)
+
+  return hiredCandidate
 }
